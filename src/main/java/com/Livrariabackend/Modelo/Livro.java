@@ -10,14 +10,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+
 import lombok.Setter;
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
 public class Livro implements Serializable {
  
@@ -32,6 +31,17 @@ public class Livro implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")
 	private Categoria  categoria;
+	public Livro(Long id, String titulo, String nomeAutor, String texto, Categoria categoria) {
+		super();
+		this.id = id;
+		this.titulo = titulo;
+		this.nomeAutor = nomeAutor;
+		this.texto = texto;
+		this.categoria = categoria;
+	}
+	public Livro() {
+		super();
+	}
 	
 	
 	
