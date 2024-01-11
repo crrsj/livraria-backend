@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.Livrariabackend.Dto.LivroDto;
 import com.Livrariabackend.Erros.ObjectNotFoundException;
+import com.Livrariabackend.Modelo.Categoria;
 import com.Livrariabackend.Modelo.Livro;
 import com.Livrariabackend.Repositorio.LivroRepositorio;
 
@@ -37,6 +38,18 @@ public class LivroServico {
 		newObj.setTitulo(obj.getTitulo());
 		newObj.setNomeAutor(obj.getNomeAutor());
 		newObj.setTexto(obj.getTexto());
+		
+	}
+	public Livro create(Long id_cat, Livro obj) {
+	obj.setId(null);
+	Categoria cat = catService.findById(id_cat);
+	obj.setCategoria(cat);
+	return  repositorio.save(obj);
+		
+	}
+	public void delete(Long id) {
+		Livro obj = findById(id);
+		repositorio.delete(obj);
 		
 	}
 	
