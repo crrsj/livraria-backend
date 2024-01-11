@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Livrariabackend.Dto.LivroDto;
 import com.Livrariabackend.Erros.ObjectNotFoundException;
 import com.Livrariabackend.Modelo.Livro;
 import com.Livrariabackend.Repositorio.LivroRepositorio;
@@ -26,5 +27,18 @@ public class LivroServico {
 		catService.findById(id_cat);
 		return repositorio.findAllByCategoria(id_cat);
 	}
+	
+	public Livro update(Long id, Livro obj) {
+		Livro newObj = findById(id);
+		updateData(newObj,obj);
+		return repositorio.save(newObj);
+	}
+	private void updateData(Livro newObj, Livro obj) {
+		newObj.setTitulo(obj.getTitulo());
+		newObj.setNomeAutor(obj.getNomeAutor());
+		newObj.setTexto(obj.getTexto());
+		
+	}
+	
 	
 }
