@@ -4,6 +4,8 @@ package com.Livrariabackend.Modelo;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,9 +16,10 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 
 import lombok.Setter;
+
+
 @Getter
 @Setter
-
 @Entity
 public class Livro implements Serializable {
  
@@ -28,6 +31,7 @@ public class Livro implements Serializable {
 	private String titulo;
 	private String nomeAutor;
 	private String texto;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")
 	private Categoria  categoria;
