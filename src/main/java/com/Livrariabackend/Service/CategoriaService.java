@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Livrariabackend.Dto.CategoriaDto;
+import com.Livrariabackend.Erros.DataIntegrityViolationException;
 import com.Livrariabackend.Erros.ObjectNotFoundException;
 import com.Livrariabackend.Modelo.Categoria;
 import com.Livrariabackend.Repositorio.CategoriaRepositorio;
@@ -40,7 +41,12 @@ public class CategoriaService {
 
 	public void delete(Long id) {
 		findById(id);
-		repositorio.deleteById(id);
+		try {
+			repositorio.deleteById(id);	
+		} catch (org.springframework.dao.DataIntegrityViolationException e) {
+			throw new DataIntegrityViolationException("Categoria não pode ser deletada!,possui livros associados");
+		}
+		
 		
 	}
 }
