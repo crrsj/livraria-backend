@@ -1,5 +1,6 @@
 package com.Livrariabackend.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,9 @@ public class CategoriaService {
 	public Categoria findById(Long id) {
 		Optional<Categoria> obj = repositorio.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Categoria de livro não encontrada ! " + id + " , tipo: " + Categoria.class.getName()));
+	}
+	
+	public List<Categoria>findAll(){
+		return repositorio.findAll();
 	}
 }
