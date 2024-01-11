@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Livrariabackend.Dto.CategoriaDto;
 import com.Livrariabackend.Erros.ObjectNotFoundException;
 import com.Livrariabackend.Modelo.Categoria;
 import com.Livrariabackend.Repositorio.CategoriaRepositorio;
@@ -27,6 +28,13 @@ public class CategoriaService {
 	
 	public Categoria create(Categoria obj) {
 		obj.setId(null);
+		return repositorio.save(obj);
+	}
+
+	public Categoria update(Long id, CategoriaDto objDto) {
+		Categoria obj = findById(id);
+		obj.setNome(objDto.getNome());
+		obj.setDescricao(objDto.getDescricao());
 		return repositorio.save(obj);
 	}
 }
