@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,7 +23,9 @@ import com.Livrariabackend.Dto.LivroDto;
 import com.Livrariabackend.Modelo.Livro;
 import com.Livrariabackend.Service.LivroServico;
 
+import jakarta.validation.Valid;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/livros")
 public class LivroControle {
@@ -46,7 +49,7 @@ public class LivroControle {
 	 
 
 	   @PutMapping(value  = "/{id}")
-	    public ResponseEntity<Livro>update(@PathVariable Long id,@RequestBody Livro obj){
+	    public ResponseEntity<Livro>update(@PathVariable Long id, @Valid @RequestBody Livro obj){
 		var newObj = servico.update(id,obj);
 		return ResponseEntity.ok().body(newObj);
 	}
@@ -58,7 +61,7 @@ public class LivroControle {
 		return ResponseEntity.ok().body(newObj);
 	}
 	   @PostMapping
-	   public ResponseEntity<Livro>create(@RequestParam(value = "categoria",defaultValue = "0") Long id_cat, @RequestBody Livro obj){
+	   public ResponseEntity<Livro>create(@RequestParam(value = "categoria",defaultValue = "0") Long id_cat,@Valid @RequestBody Livro obj){
 		   Livro newObj = servico.create(id_cat,obj);
 		  URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/livros/{id}").buildAndExpand(newObj.getId()).toUri();
 		  return ResponseEntity.created(uri).build();
